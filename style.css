@@ -184,25 +184,28 @@ nav a:hover::after, nav a.active::after {
     color: var(--dark-bg);
 }
 
-/* Sections - BARCHA SARLAVHALAR MARKAZDA */
+/* Sections - ASOSIY Tuzatish: Sarlavhalar Markazlashtirildi */
 section {
     padding: var(--section-padding);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Barcha elementlarni gorizontal markazga joylashtirish */
 }
 
 .section-title {
     font-family: 'Orbitron', sans-serif;
     font-size: 3.2rem;
     margin-bottom: 60px;
-    text-align: center;
+    text-align: center; /* Matnni markazlashtirish */
     position: relative;
-    display: block;
-    width: 100%;
+    width: 100%; /* To'liq kenglik */
+    max-width: 900px; /* Matnning maksimal kengligi */
+    padding: 0 20px; /* Ichki bo'shliq */
+    box-sizing: border-box;
     text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    /* display: inline-block, left: 50%, transform: translateX(-50%) O'CHIRILDI */
 }
 
 .section-title::after {
@@ -980,6 +983,7 @@ footer {
     
     .section-title {
         font-size: 2.6rem;
+        padding: 0 15px;
     }
     
     .btn {
@@ -1032,6 +1036,7 @@ footer {
     
     .section-title {
         font-size: 2.2rem;
+        padding: 0 10px;
     }
     
     .hero-description {
