@@ -165,25 +165,6 @@ nav a:hover::after, nav a.active::after {
     width: 100%;
 }
 
-.menu-toggle {
-    display: none;
-    background: var(--card-bg);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    color: var(--accent-gold);
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1001;
-    font-size: 1.5rem;
-    transition: var(--transition);
-}
-
-.menu-toggle.active {
-    background: var(--accent-gold);
-    color: var(--dark-bg);
-}
-
 /* Sections */
 section {
     padding: var(--section-padding);
@@ -251,7 +232,8 @@ section {
     margin: 0 auto 30px;
     font-size: 1.25rem;
     color: var(--text-secondary);
-    line-height: 1.8;
+    opacity: 1;
+    transform: none;
 }
 
 .cta-buttons {
@@ -427,7 +409,6 @@ section {
 .profile-university {
     color: var(--text-secondary);
     padding: 0 20px;
-    line-height: 1.6;
 }
 
 .about-text {
@@ -439,6 +420,7 @@ section {
 
 .about-text p {
     margin-bottom: 20px;
+    text-align: left;
 }
 
 .highlight {
@@ -604,6 +586,7 @@ section {
     color: var(--text-secondary);
     margin-bottom: 20px;
     line-height: 1.7;
+    text-align: left;
 }
 
 .project-features {
