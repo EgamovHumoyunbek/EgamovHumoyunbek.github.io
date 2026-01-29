@@ -16,6 +16,22 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             header.classList.remove('scrolled');
         }
+        
+        // Back to top button
+        const backToTopBtn = document.querySelector('.back-to-top');
+        if (backToTopBtn) {
+            if (window.scrollY > 500) {
+                backToTopBtn.style.display = 'block';
+                backToTopBtn.style.transform = 'scale(1)';
+            } else {
+                backToTopBtn.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    if (window.scrollY < 500) {
+                        backToTopBtn.style.display = 'none';
+                    }
+                }, 300);
+            }
+        }
     });
     
     // ========================================
@@ -25,15 +41,55 @@ document.addEventListener('DOMContentLoaded', function() {
     
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            // Barcha linklardan active class ni olib tashlash
             navLinks.forEach(a => a.classList.remove('active'));
-            // Bosilgan linkga active class qo'shish
             this.classList.add('active');
         });
     });
     
     // ========================================
-    // 3. Smooth Scrolling
+    // 3. Mobile Menu Toggle
+    // ========================================
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('nav ul');
+    
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            if (this.classList.contains('active')) {
+                this.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                this.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        // Close menu when clicking on a link (mobile)
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 && 
+                !navMenu.contains(e.target) && 
+                !menuToggle.contains(e.target) && 
+                navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    }
+    
+    // ========================================
+    // 4. Smooth Scrolling
     // ========================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -53,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // 4. Scroll Animations (Intersection Observer)
+    // 5. Scroll Animations (Intersection Observer)
     // ========================================
     const animateItems = document.querySelectorAll('.animate-item');
     
@@ -66,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Bir marta animatsiya qilish
                 observer.unobserve(entry.target);
             }
         });
@@ -77,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // 5. Hero Section Initial Animation
+    // 6. Hero Section Initial Animation
     // ========================================
     const heroContent = document.querySelector('.hero-content');
     if (heroContent) {
@@ -87,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ========================================
-    // 6. Skill Cards 3D Hover Effect
+    // 7. Skill Cards 3D Hover Effect
     // ========================================
     const skillCards = document.querySelectorAll('.skill-card');
     
@@ -112,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // 7. Project Cards Hover Effect
+    // 8. Project Cards Hover Effect
     // ========================================
     const projectCards = document.querySelectorAll('.project-card');
     
@@ -127,13 +182,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // 8. Button Ripple Effect
+    // 9. Button Ripple Effect
     // ========================================
     const buttons = document.querySelectorAll('.btn');
     
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
-            // Ripple effect yaratish
             const ripple = document.createElement('span');
             const rect = button.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
@@ -147,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             this.appendChild(ripple);
             
-            // Ripple ni o'chirish
             setTimeout(() => {
                 ripple.remove();
             }, 600);
@@ -155,47 +208,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // 9. Back to Top Button
+    // 10. Back to Top Button
     // ========================================
     let backToTopBtn = document.createElement('button');
     backToTopBtn.className = 'back-to-top';
     backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    backToTopBtn.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--accent-gold);
-        color: var(--dark-bg);
-        border: none;
-        cursor: pointer;
-        display: none;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        transition: var(--transition);
-        z-index: 999;
-        font-size: 1.2rem;
-    `;
-    
     document.body.appendChild(backToTopBtn);
     
-    // Scroll event for back to top button
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 500) {
-            backToTopBtn.style.display = 'block';
-            backToTopBtn.style.transform = 'scale(1)';
-        } else {
-            backToTopBtn.style.transform = 'scale(0)';
-            setTimeout(() => {
-                if (window.scrollY < 500) {
-                    backToTopBtn.style.display = 'none';
-                }
-            }, 300);
-        }
-    });
-    
-    // Back to top button click
     backToTopBtn.addEventListener('click', function() {
         window.scrollTo({
             top: 0,
@@ -204,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // 10. Loading Animation
+    // 11. Loading Animation
     // ========================================
     const loader = document.createElement('div');
     loader.className = 'loader';
@@ -215,22 +234,20 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     `;
     
-    loader.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--dark-bg);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition: opacity 0.5s ease;
-    `;
+    loader.style.position = 'fixed';
+    loader.style.top = '0';
+    loader.style.left = '0';
+    loader.style.width = '100%';
+    loader.style.height = '100%';
+    loader.style.backgroundColor = 'var(--dark-bg)';
+    loader.style.display = 'flex';
+    loader.style.justifyContent = 'center';
+    loader.style.alignItems = 'center';
+    loader.style.zIndex = '9999';
+    loader.style.transition = 'opacity 0.5s ease';
     
-    const loaderStyle = document.createElement('style');
-    loaderStyle.textContent = `
+    const style = document.createElement('style');
+    style.textContent = `
         .loader-text {
             font-family: 'Orbitron', sans-serif;
             font-size: 3rem;
@@ -252,11 +269,10 @@ document.addEventListener('DOMContentLoaded', function() {
             to { transform: rotate(360deg); }
         }
     `;
-    document.head.appendChild(loaderStyle);
+    document.head.appendChild(style);
     
     document.body.appendChild(loader);
     
-    // Loading tugagach o'chirish
     window.addEventListener('load', function() {
         setTimeout(() => {
             loader.style.opacity = '0';
@@ -267,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // 11. Copy to Clipboard for Contact Info
+    // 12. Copy to Clipboard for Contact Info
     // ========================================
     const contactLinks = document.querySelectorAll('.contact-details a');
     
@@ -277,24 +293,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 const textToCopy = this.textContent.trim();
                 
-                // Clipboard ga nusxalash
                 navigator.clipboard.writeText(textToCopy).then(() => {
-                    // Tooltip ko'rsatish
                     const tooltip = document.createElement('div');
                     tooltip.textContent = 'Nusxalandi!';
-                    tooltip.style.cssText = `
-                        position: fixed;
-                        top: 20px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        background: var(--accent-gold);
-                        color: var(--dark-bg);
-                        padding: 10px 20px;
-                        border-radius: 8px;
-                        z-index: 10000;
-                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-                        animation: fadeInOut 2s ease;
-                    `;
+                    tooltip.style.position = 'fixed';
+                    tooltip.style.top = '20px';
+                    tooltip.style.left = '50%';
+                    tooltip.style.transform = 'translateX(-50%)';
+                    tooltip.style.backgroundColor = 'var(--accent-gold)';
+                    tooltip.style.color = 'var(--dark-bg)';
+                    tooltip.style.padding = '10px 20px';
+                    tooltip.style.borderRadius = '8px';
+                    tooltip.style.zIndex = '10000';
+                    tooltip.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+                    tooltip.style.animation = 'fadeInOut 2s ease';
                     
                     const tooltipStyle = document.createElement('style');
                     tooltipStyle.textContent = `
@@ -314,112 +326,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
-    // ========================================
-    // 12. Mobile Menu Toggle
-    // ========================================
-    const menuToggle = document.createElement('button');
-    menuToggle.className = 'menu-toggle';
-    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-    menuToggle.style.cssText = `
-        display: none;
-        background: var(--card-bg);
-        border: 1px solid rgba(212, 175, 55, 0.3);
-        color: var(--accent-gold);
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        cursor: pointer;
-        z-index: 1001;
-        font-size: 1.5rem;
-        transition: var(--transition);
-    `;
-    
-    header.appendChild(menuToggle);
-    
-    const navMenu = document.querySelector('nav ul');
-    
-    // Menu toggle
-    menuToggle.addEventListener('click', function() {
-        this.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        
-        if (this.classList.contains('active')) {
-            this.innerHTML = '<i class="fas fa-times"></i>';
-        } else {
-            this.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-    });
-    
-    // Responsive menu
-    function checkScreenSize() {
-        if (window.innerWidth <= 768) {
-            menuToggle.style.display = 'block';
-            navMenu.style.display = 'none';
-            
-            if (navMenu.classList.contains('active')) {
-                navMenu.style.display = 'block';
-            }
-        } else {
-            menuToggle.style.display = 'none';
-            navMenu.style.display = 'flex';
-            menuToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-    }
-    
-    // Initial check
-    checkScreenSize();
-    
-    // Window resize event
-    window.addEventListener('resize', checkScreenSize);
-    
-    // Menu link click
-    document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                navMenu.classList.remove('active');
-                menuToggle.classList.remove('active');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768 && 
-            navMenu.classList.contains('active') &&
-            !navMenu.contains(e.target) && 
-            !menuToggle.contains(e.target)) {
-            navMenu.classList.remove('active');
-            menuToggle.classList.remove('active');
-            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-    });
-    
-    // ========================================
-    // 13. Typing Effect for Hero Description
-    // ========================================
-    const heroDesc = document.querySelector('.hero-description');
-    if (heroDesc) {
-        const originalText = heroDesc.textContent;
-        heroDesc.textContent = '';
-        
-        let charIndex = 0;
-        const typeSpeed = 50;
-        
-        setTimeout(() => {
-            const typeWriter = setInterval(() => {
-                if (charIndex < originalText.length) {
-                    heroDesc.textContent += originalText.charAt(charIndex);
-                    charIndex++;
-                } else {
-                    clearInterval(typeWriter);
-                }
-            }, typeSpeed);
-        }, 1000);
-    }
     
     console.log('🚀 Portfolio JavaScript loaded successfully!');
     console.log('👨‍💻 Developed by Egamov Humoyunbek');
