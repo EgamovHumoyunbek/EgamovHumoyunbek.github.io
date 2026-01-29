@@ -3,7 +3,6 @@
 // Egamov Humoyunbek
 // ========================================
 
-// DOM Content Loaded Event
 document.addEventListener('DOMContentLoaded', function() {
     
     // ========================================
@@ -30,12 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.forEach(a => a.classList.remove('active'));
             // Bosilgan linkga active class qo'shish
             this.classList.add('active');
-            
-            // Mobile view da menu yopilishi
-            if (menuToggle && menuToggle.classList.contains('active')) {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
         });
     });
     
@@ -162,7 +155,251 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // 9. Typing Effect for Hero Description
+    // 9. Back to Top Button
+    // ========================================
+    let backToTopBtn = document.createElement('button');
+    backToTopBtn.className = 'back-to-top';
+    backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    backToTopBtn.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--accent-gold);
+        color: var(--dark-bg);
+        border: none;
+        cursor: pointer;
+        display: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transition: var(--transition);
+        z-index: 999;
+        font-size: 1.2rem;
+    `;
+    
+    document.body.appendChild(backToTopBtn);
+    
+    // Scroll event for back to top button
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 500) {
+            backToTopBtn.style.display = 'block';
+            backToTopBtn.style.transform = 'scale(1)';
+        } else {
+            backToTopBtn.style.transform = 'scale(0)';
+            setTimeout(() => {
+                if (window.scrollY < 500) {
+                    backToTopBtn.style.display = 'none';
+                }
+            }, 300);
+        }
+    });
+    
+    // Back to top button click
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // ========================================
+    // 10. Loading Animation
+    // ========================================
+    const loader = document.createElement('div');
+    loader.className = 'loader';
+    loader.innerHTML = `
+        <div class="loader-content">
+            <h1 class="loader-text">HumoyunDev</h1>
+            <div class="loader-spinner"></div>
+        </div>
+    `;
+    
+    loader.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--dark-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+    `;
+    
+    const loaderStyle = document.createElement('style');
+    loaderStyle.textContent = `
+        .loader-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(212, 175, 55, 0.3);
+            border-top-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(loaderStyle);
+    
+    document.body.appendChild(loader);
+    
+    // Loading tugagach o'chirish
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.remove();
+            }, 500);
+        }, 1500);
+    });
+    
+    // ========================================
+    // 11. Copy to Clipboard for Contact Info
+    // ========================================
+    const contactLinks = document.querySelectorAll('.contact-details a');
+    
+    contactLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (this.href.startsWith('tel:') || this.href.startsWith('mailto:')) {
+                e.preventDefault();
+                const textToCopy = this.textContent.trim();
+                
+                // Clipboard ga nusxalash
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Tooltip ko'rsatish
+                    const tooltip = document.createElement('div');
+                    tooltip.textContent = 'Nusxalandi!';
+                    tooltip.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: var(--accent-gold);
+                        color: var(--dark-bg);
+                        padding: 10px 20px;
+                        border-radius: 8px;
+                        z-index: 10000;
+                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                        animation: fadeInOut 2s ease;
+                    `;
+                    
+                    const tooltipStyle = document.createElement('style');
+                    tooltipStyle.textContent = `
+                        @keyframes fadeInOut {
+                            0%, 100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                            10%, 90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+                        }
+                    `;
+                    document.head.appendChild(tooltipStyle);
+                    
+                    document.body.appendChild(tooltip);
+                    
+                    setTimeout(() => {
+                        tooltip.remove();
+                    }, 2000);
+                });
+            }
+        });
+    });
+    
+    // ========================================
+    // 12. Mobile Menu Toggle
+    // ========================================
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    menuToggle.style.cssText = `
+        display: none;
+        background: var(--card-bg);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        color: var(--accent-gold);
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1001;
+        font-size: 1.5rem;
+        transition: var(--transition);
+    `;
+    
+    header.appendChild(menuToggle);
+    
+    const navMenu = document.querySelector('nav ul');
+    
+    // Menu toggle
+    menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        
+        if (this.classList.contains('active')) {
+            this.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+            this.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+    
+    // Responsive menu
+    function checkScreenSize() {
+        if (window.innerWidth <= 768) {
+            menuToggle.style.display = 'block';
+            navMenu.style.display = 'none';
+            
+            if (navMenu.classList.contains('active')) {
+                navMenu.style.display = 'block';
+            }
+        } else {
+            menuToggle.style.display = 'none';
+            navMenu.style.display = 'flex';
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    }
+    
+    // Initial check
+    checkScreenSize();
+    
+    // Window resize event
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Menu link click
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768 && 
+            navMenu.classList.contains('active') &&
+            !navMenu.contains(e.target) && 
+            !menuToggle.contains(e.target)) {
+            navMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+    
+    // ========================================
+    // 13. Typing Effect for Hero Description
     // ========================================
     const heroDesc = document.querySelector('.hero-description');
     if (heroDesc) {
@@ -183,312 +420,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, typeSpeed);
         }, 1000);
     }
-    
-    // ========================================
-    // 10. Contact Form Validation (agar form bo'lsa)
-    // ========================================
-    const contactForm = document.querySelector('#contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.querySelector('#name').value.trim();
-            const email = document.querySelector('#email').value.trim();
-            const message = document.querySelector('#message').value.trim();
-            
-            let isValid = true;
-            
-            // Name validation
-            if (name === '') {
-                showError('#name', 'Ismingizni kiriting');
-                isValid = false;
-            } else {
-                clearError('#name');
-            }
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showError('#email', 'To\'g\'ri email manzilini kiriting');
-                isValid = false;
-            } else {
-                clearError('#email');
-            }
-            
-            // Message validation
-            if (message === '') {
-                showError('#message', 'Xabarni kiriting');
-                isValid = false;
-            } else if (message.length < 10) {
-                showError('#message', 'Xabar kamida 10 ta belgidan iborat bo\'lishi kerak');
-                isValid = false;
-            } else {
-                clearError('#message');
-            }
-            
-            // Form yuborish
-            if (isValid) {
-                // Formani yuborish kodi
-                alert('Xabaringiz muvaffaqiyatli yuborildi!');
-                contactForm.reset();
-            }
-        });
-        
-        function showError(inputId, message) {
-            const input = document.querySelector(inputId);
-            const errorDiv = input.nextElementSibling;
-            
-            if (errorDiv && errorDiv.classList.contains('error-message')) {
-                errorDiv.textContent = message;
-                errorDiv.style.display = 'block';
-            } else {
-                const error = document.createElement('div');
-                error.className = 'error-message';
-                error.textContent = message;
-                error.style.color = '#e74c3c';
-                error.style.fontSize = '0.85rem';
-                error.style.marginTop = '5px';
-                input.parentNode.appendChild(error);
-            }
-            
-            input.style.borderColor = '#e74c3c';
-        }
-        
-        function clearError(inputId) {
-            const input = document.querySelector(inputId);
-            const errorDiv = input.nextElementSibling;
-            
-            if (errorDiv && errorDiv.classList.contains('error-message')) {
-                errorDiv.style.display = 'none';
-            }
-            
-            input.style.borderColor = '';
-        }
-    }
-    
-    // ========================================
-    // 11. Back to Top Button
-    // ========================================
-    let backToTopBtn = document.createElement('button');
-    backToTopBtn.className = 'back-to-top';
-    backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    backToTopBtn.style.position = 'fixed';
-    backToTopBtn.style.bottom = '30px';
-    backToTopBtn.style.right = '30px';
-    backToTopBtn.style.width = '50px';
-    backToTopBtn.style.height = '50px';
-    backToTopBtn.style.borderRadius = '50%';
-    backToTopBtn.style.backgroundColor = 'var(--accent-gold)';
-    backToTopBtn.style.color = 'var(--dark-bg)';
-    backToTopBtn.style.border = 'none';
-    backToTopBtn.style.cursor = 'pointer';
-    backToTopBtn.style.display = 'none';
-    backToTopBtn.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
-    backToTopBtn.style.transition = 'all 0.3s ease';
-    backToTopBtn.style.zIndex = '999';
-    backToTopBtn.style.fontSize = '1.2rem';
-    
-    document.body.appendChild(backToTopBtn);
-    
-    // Scroll event for back to top button
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 500) {
-            backToTopBtn.style.display = 'block';
-            backToTopBtn.style.transform = 'scale(1)';
-        } else {
-            backToTopBtn.style.transform = 'scale(0)';
-            setTimeout(() => {
-                backToTopBtn.style.display = 'none';
-            }, 300);
-        }
-    });
-    
-    // Back to top button click
-    backToTopBtn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-    
-    // ========================================
-    // 12. Loading Animation
-    // ========================================
-    const loader = document.createElement('div');
-    loader.className = 'loader';
-    loader.innerHTML = `
-        <div class="loader-content">
-            <h1 class="loader-text">HumoyunDev</h1>
-            <div class="loader-spinner"></div>
-        </div>
-    `;
-    
-    loader.style.position = 'fixed';
-    loader.style.top = '0';
-    loader.style.left = '0';
-    loader.style.width = '100%';
-    loader.style.height = '100%';
-    loader.style.backgroundColor = 'var(--dark-bg)';
-    loader.style.display = 'flex';
-    loader.style.justifyContent = 'center';
-    loader.style.alignItems = 'center';
-    loader.style.zIndex = '9999';
-    loader.style.transition = 'opacity 0.5s ease';
-    
-    loader.querySelector('.loader-text').style.fontFamily = "'Orbitron', sans-serif";
-    loader.querySelector('.loader-text').style.fontSize = '3rem';
-    loader.querySelector('.loader-text').style.background = 'linear-gradient(45deg, var(--accent-gold), var(--accent-teal))';
-    loader.querySelector('.loader-text').style.webkitBackgroundClip = 'text';
-    loader.querySelector('.loader-text').style.backgroundClip = 'text';
-    loader.querySelector('.loader-text').style.color = 'transparent';
-    
-    loader.querySelector('.loader-spinner').style.width = '50px';
-    loader.querySelector('.loader-spinner').style.height = '50px';
-    loader.querySelector('.loader-spinner').style.border = '5px solid rgba(212, 175, 55, 0.3)';
-    loader.querySelector('.loader-spinner').style.borderTopColor = 'var(--accent-gold)';
-    loader.querySelector('.loader-spinner').style.borderRadius = '50%';
-    loader.querySelector('.loader-spinner').style.animation = 'spin 1s linear infinite';
-    
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    `;
-    document.head.appendChild(style);
-    
-    document.body.appendChild(loader);
-    
-    // Loading tugagach o'chirish
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.remove();
-            }, 500);
-        }, 1500);
-    });
-    
-    // ========================================
-    // 13. Section Counter Animation
-    // ========================================
-    const counters = document.querySelectorAll('.counter');
-    
-    counters.forEach(counter => {
-        const updateCount = () => {
-            const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText;
-            
-            const speed = 200;
-            const increment = target / speed;
-            
-            if (count < target) {
-                counter.innerText = Math.ceil(count + increment);
-                setTimeout(updateCount, 1);
-            } else {
-                counter.innerText = target;
-            }
-        };
-        
-        // Counter ko'rinishida bo'lganda ishga tushirish
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    updateCount();
-                    counterObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        counterObserver.observe(counter);
-    });
-    
-    // ========================================
-    // 14. Dark Mode Toggle (Qo'shimcha)
-    // ========================================
-    // Agar kerak bo'lsa qo'shish mumkin
-    
-    // ========================================
-    // 15. Copy to Clipboard for Contact Info
-    // ========================================
-    const contactLinks = document.querySelectorAll('.contact-details a');
-    
-    contactLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            if (this.href.startsWith('tel:') || this.href.startsWith('mailto:')) {
-                const textToCopy = this.textContent.trim();
-                
-                // Clipboard ga nusxalash
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    // Tooltip ko'rsatish
-                    const tooltip = document.createElement('div');
-                    tooltip.textContent = 'Nusxalandi!';
-                    tooltip.style.position = 'fixed';
-                    tooltip.style.top = '20px';
-                    tooltip.style.left = '50%';
-                    tooltip.style.transform = 'translateX(-50%)';
-                    tooltip.style.backgroundColor = 'var(--accent-gold)';
-                    tooltip.style.color = 'var(--dark-bg)';
-                    tooltip.style.padding = '10px 20px';
-                    tooltip.style.borderRadius = '8px';
-                    tooltip.style.zIndex = '10000';
-                    tooltip.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
-                    tooltip.style.animation = 'fadeInOut 2s ease';
-                    
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        @keyframes fadeInOut {
-                            0%, 100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-                            10%, 90% { opacity: 1; transform: translateX(-50%) translateY(0); }
-                        }
-                    `;
-                    document.head.appendChild(style);
-                    
-                    document.body.appendChild(tooltip);
-                    
-                    setTimeout(() => {
-                        tooltip.remove();
-                    }, 2000);
-                });
-            }
-        });
-    });
-    
-    // ========================================
-    // 16. Mouse Follower Effect (Qo'shimcha)
-    // ========================================
-    const mouseFollower = document.createElement('div');
-    mouseFollower.className = 'mouse-follower';
-    mouseFollower.style.position = 'fixed';
-    mouseFollower.style.width = '30px';
-    mouseFollower.style.height = '30px';
-    mouseFollower.style.borderRadius = '50%';
-    mouseFollower.style.backgroundColor = 'rgba(212, 175, 55, 0.3)';
-    mouseFollower.style.pointerEvents = 'none';
-    mouseFollower.style.zIndex = '9999';
-    mouseFollower.style.transform = 'translate(-50%, -50%)';
-    mouseFollower.style.transition = 'transform 0.1s ease';
-    
-    document.body.appendChild(mouseFollower);
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseFollower.style.left = `${e.clientX}px`;
-        mouseFollower.style.top = `${e.clientY}px`;
-    });
-    
-    // Links hover effect
-    const links = document.querySelectorAll('a, button, .btn');
-    links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            mouseFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
-            mouseFollower.style.backgroundColor = 'rgba(0, 245, 212, 0.4)';
-        });
-        
-        link.addEventListener('mouseleave', () => {
-            mouseFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-            mouseFollower.style.backgroundColor = 'rgba(212, 175, 55, 0.3)';
-        });
-    });
     
     console.log('🚀 Portfolio JavaScript loaded successfully!');
     console.log('👨‍💻 Developed by Egamov Humoyunbek');
