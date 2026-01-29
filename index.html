@@ -1,32 +1,1192 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Egamov Humoyunbek</title>
-  <meta name="description" content="Iqtisodiyot talabasi | Web dasturchi | AI entuziasti">
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egamov Humoyunbek | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800&family=Roboto+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #0a0a1a;
+            --dark-secondary: #111222;
+            --accent-gold: #d4af37;
+            --accent-teal: #00f5d4;
+            --accent-purple: #8a2be2;
+            --accent-blue: #4cc9f0;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8d2;
+            --card-bg: rgba(25, 25, 55, 0.85);
+            --shadow-3d: 0 10px 30px rgba(0, 0, 0, 0.7);
+            --transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --border-radius: 16px;
+            --section-padding: 100px 5%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a2e 100%);
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        /* 3D Text Effect */
+        .three-d-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 5.5rem;
+            text-align: center;
+            position: relative;
+            letter-spacing: -2px;
+            text-shadow: 
+                0 0 15px rgba(212, 175, 55, 0.8),
+                0 0 30px rgba(212, 175, 55, 0.6),
+                0 0 45px rgba(0, 245, 212, 0.5),
+                3px 3px 0 var(--accent-gold),
+                6px 6px 0 rgba(0, 0, 0, 0.3),
+                9px 9px 0 rgba(0, 0, 0, 0.2);
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-teal), var(--accent-purple), var(--accent-blue));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGradient 15s ease infinite, floatText 6s ease-in-out infinite;
+            margin-bottom: 20px;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        @keyframes textGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+            50% { transform: translateY(-10px) rotateX(5deg) rotateY(5deg); }
+        }
+
+        .subtitle {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.8rem;
+            color: var(--accent-teal);
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            text-shadow: 0 0 10px rgba(0, 245, 212, 0.7);
+        }
+
+        .subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-teal), transparent);
+            border-radius: 2px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 26, 0.92);
+        }
+
+        header.scrolled {
+            padding: 15px 5%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--text-primary);
+            opacity: 0.7;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-teal);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            padding: var(--section-padding);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.2rem;
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), var(--accent-teal), var(--accent-purple), transparent);
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        #hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(10, 10, 26, 0.7) 0%, rgba(10, 10, 26, 0.95) 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 16px 42px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+            z-index: -1;
+            transition: var(--transition);
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+
+        .btn:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn-primary {
+            background: var(--card-bg);
+            color: var(--accent-teal);
+            box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        /* About Section */
+        #about {
+            background: linear-gradient(145deg, var(--dark-secondary) 0%, var(--dark-bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(0, 245, 212, 0.1) 0%, transparent 25%);
+            z-index: -1;
+        }
+
+        .about-content {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .profile-card {
+            width: 320px;
+            height: 420px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-3d);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+
+        .profile-card:hover {
+            transform: rotateY(10deg) rotateX(5deg) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 245, 212, 0.4);
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transform: rotate(45deg);
+            z-index: -1;
+        }
+
+        .profile-placeholder {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--dark-bg);
+            margin-bottom: 25px;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+            position: relative;
+            z-index: 2;
+            border: 4px solid var(--accent-gold);
+        }
+
+        .profile-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            margin: 15px 0 10px;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .profile-title {
+            font-size: 1.3rem;
+            color: var(--accent-teal);
+            margin-bottom: 20px;
+        }
+
+        .about-text {
+            flex: 1;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        /* Skills Section */
+        #skills {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0f0f2d 100%);
+            position: relative;
+        }
+
+        #skills::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 245, 212, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.08) 0%, transparent 25%);
+            z-index: -1;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 35px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 35px 30px;
+            text-align: center;
+            box-shadow: var(--shadow-3d);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 245, 212, 0.3);
+            border-color: rgba(0, 245, 212, 0.3);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-teal), var(--accent-gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+            z-index: 1;
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .skill-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--accent-gold);
+        }
+
+        .skill-description {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* Projects Section */
+        #projects {
+            background: linear-gradient(145deg, var(--dark-secondary) 0%, var(--dark-bg) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 40%, rgba(138, 43, 226, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 85% 60%, rgba(0, 245, 212, 0.15) 0%, transparent 30%);
+            z-index: -1;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-3d);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.3);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .project-img {
+            height: 200px;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--dark-bg);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.9rem;
+            margin-bottom: 12px;
+            color: var(--accent-gold);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .project-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .feature-tag {
+            background: rgba(0, 245, 212, 0.15);
+            color: var(--accent-teal);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a3a 100%);
+            position: relative;
+        }
+
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 75% 75%, rgba(0, 245, 212, 0.1) 0%, transparent 30%);
+            z-index: -1;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .contact-icon {
+            min-width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-teal);
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            color: var(--accent-gold);
+        }
+
+        .contact-details p, .contact-details a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact-details a:hover {
+            color: var(--accent-teal);
+            transform: translateX(5px);
+        }
+
+        .working-hours {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-3d);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .working-hours h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+            color: var(--accent-gold);
+            text-align: center;
+        }
+
+        .hours-list {
+            list-style: none;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .hours-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        .highlight-hours {
+            color: var(--accent-teal);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 5, 15, 0.95);
+            padding: 30px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-top: 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 25px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--accent-teal);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 245, 212, 0.3);
+        }
+
+        .social-links a:hover {
+            background: rgba(0, 245, 212, 0.15);
+            transform: translateY(-5px) scale(1.1);
+            color: var(--accent-gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .animate-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .animate-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .three-d-text {
+                font-size: 4.5rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .profile-card {
+                width: 280px;
+                height: 380px;
+            }
+            
+            .profile-placeholder {
+                width: 150px;
+                height: 150px;
+                font-size: 3.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --section-padding: 80px 5%;
+            }
+            
+            .three-d-text {
+                font-size: 3.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.5rem;
+            }
+            
+            nav ul {
+                gap: 20px;
+                display: none;
+            }
+            
+            .section-title {
+                font-size: 2.6rem;
+            }
+            
+            .btn {
+                padding: 14px 30px;
+                font-size: 0.95rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .profile-card {
+                width: 260px;
+                height: 360px;
+            }
+            
+            .profile-placeholder {
+                width: 140px;
+                height: 140px;
+                font-size: 3.5rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .three-d-text {
+                font-size: 3.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .skill-card, .project-card {
+                padding: 25px 20px;
+            }
+            
+            .skill-title, .project-title {
+                font-size: 1.6rem;
+            }
+            
+            .profile-name {
+                font-size: 1.9rem;
+            }
+            
+            .profile-title {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- 3D Fon qatlamlari -->
-  <div class="scene">
-    <div class="layer layer--back"></div>
-    <div class="layer layer--mid"></div>
-    <div class="layer layer--front"></div>
-  </div>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="logo">Humoyun<span>Dev</span></div>
+        <nav>
+            <ul>
+                <li><a href="#hero" class="active">Bosh sahifa</a></li>
+                <li><a href="#about">Men haqimda</a></li>
+                <li><a href="#skills">Ko'nikmalar</a></li>
+                <li><a href="#projects">Loyihalar</a></li>
+                <li><a href="#contact">Aloqa</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <div class="hero">
-    <div class="hero-content">
-      <h1 class="name">Egamov Humoyunbek</h1>
-      <h2 class="tagline">Iqtisodiyot + Kod = Kelajak</h2>
-      <div class="buttons">
-        <a href="#projects" class="btn btn-3d">Loyihalarim</a>
-        <a href="https://t.me/CEO_ECONOMY" class="btn btn-3d btn-outline">Bog'lanish</a>
-      </div>
-    </div>
-  </div>
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content animate-item">
+            <h1 class="three-d-text">Egamov Humoyunbek</h1>
+            <p class="subtitle">Web Dasturchi | Iqtisodiyot Mutaxassisi | AI Dasturchi</p>
+            <p class="hero-description animate-item" style="opacity:1; transform:none; max-width:700px; margin:0 auto 30px; font-size:1.25rem; color:var(--text-secondary);">
+                Men web dasturlash, sun'iy intellekt va iqtisodiyot sohasida professional yondashuvga ega dasturchiman. Zamonaviy texnologiyalar va iqtisodiy tahlillarni birlashtirib, noyob yechimlar yarataman.
+            </p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">Loyihalarim</a>
+                <a href="#contact" class="btn btn-secondary">Bog'lanish</a>
+            </div>
+        </div>
+    </section>
 
-  <script src="script.js"></script>
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title animate-item">Men haqimda</h2>
+        <div class="about-content">
+            <div class="profile-container animate-item">
+                <div class="profile-card floating">
+                    <div class="profile-placeholder">EH</div>
+                    <h3 class="profile-name">Egamov Humoyunbek</h3>
+                    <p class="profile-title">Web Dasturchi & Iqtisodchi</p>
+                    <p style="color: var(--text-secondary); padding: 0 20px;">
+                        Turon Universiteti<br>
+                        Iqtisodiyot fakulteti
+                    </p>
+                </div>
+            </div>
+            <div class="about-text animate-item">
+                <p>
+                    Men <span class="highlight">web dasturlashga, dasturlash tillariga, AI bilan ishlashga</span> qiziqaman. Hozirda web dasturlash orqali o'zimning birinchi saytimni yaratmoqdaman va men HTML CSS JS dasturlash tillari bilan <span class="highlight">Matrix app</span> degan ilova yaratdim. Ilova ancha sodda lekin bu hali boshlanishi. Matrix app ilovamda kalkulyator, soat, taymer, notes bor. Hozircha ilovam funksiyalari sodda va kelajakda albatta bundan ham ajoyib ilovalarni tayyorlamoqchiman.
+                </p>
+                <p>
+                    Mening boshqa qiziqishlarim <span class="highlight">kompyuter va mobile o'yinlari, har xil mantiqiy savollarni yechish, va asosan jumboqlarni yoqtiraman</span>. Men hozir talabaman va men O'zbekiston Respublikasi Qashqadaryo viloyati Qarshi shahridagi Turon universitetida Iqtisodiyot sohasida o'qiyman.
+                </p>
+                <p>
+                    Mening yo'nalishim iqtisodiyot bo'lsada, hozir zamon juda rivojlanmoqda. Har bir yigitga 40 ta kasb oz degandek, men ham turli xil kasblar ega insonman. Men Web dasturlash orqali websaytlar yaratishni, Dasturlash tillari orqali soddaroq ilovalar yaratishni, Professional Slaydlar qilishni, Documentlar bilan ishlashni, video tahriri timing qilishni bilaman va qisqacha dublyaj sohasidan ham biroz habarim bor, hamda videolarni tarjima qilishni, kitoblarni clean, tarjima, tahrirlashni bilaman. Hozirgi kunda sun'iy intellektlar bilan ishlashni o'rganmoqdaman.
+                </p>
+                <p>
+                    Agar men bilaman biror bilimlaringizni alishmoqchi bo'lsangiz menga murojaat qiling.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title animate-item">Ko'nikmalar</h2>
+        <div class="skills-container">
+            <div class="skill-card animate-item">
+                <i class="fas fa-code skill-icon"></i>
+                <h3 class="skill-title">Web Dasturlash</h3>
+                <p class="skill-description">HTML5, CSS3, JavaScript bilan zamonaviy va responsiv veb-saytlar yaratish</p>
+            </div>
+            <div class="skill-card animate-item">
+                <i class="fas fa-robot skill-icon"></i>
+                <h3 class="skill-title">Sun'iy Intellekt</h3>
+                <p class="skill-description">AI modellari bilan ishlash, machine learning asoslari va AI yechimlarni integratsiya qilish</p>
+            </div>
+            <div class="skill-card animate-item">
+                <i class="fas fa-calculator skill-icon"></i>
+                <h3 class="skill-title">Iqtisodiy Tahlil</h3>
+                <p class="skill-description">Moliyaviy tahlillar, iqtisodiy prognozlar va biznes strategiyalarni ishlab chiqish</p>
+            </div>
+            <div class="skill-card animate-item">
+                <i class="fas fa-video skill-icon"></i>
+                <h3 class="skill-title">Media Ishlab Chiqarish</h3>
+                <p class="skill-description">Video tahrirlash, dublyaj, tarjima va professional prezentatsiyalar tayyorlash</p>
+            </div>
+            <div class="skill-card animate-item">
+                <i class="fas fa-mobile-alt skill-icon"></i>
+                <h3 class="skill-title">Mobil Ilovalar</h3>
+                <p class="skill-description">Oddiy mobil ilovalarni dasturlash tillari yordamida yaratish</p>
+            </div>
+            <div class="skill-card animate-item">
+                <i class="fas fa-puzzle-piece skill-icon"></i>
+                <h3 class="skill-title">Mantiqiy Fikrlash</h3>
+                <p class="skill-description">Murakkab muammolarni hal qilish, jumboqlar va strategik o'yinlarni yechish</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title animate-item">Loyihalar</h2>
+        <div class="projects-grid">
+            <div class="project-card animate-item">
+                <div class="project-img">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Matrix App</h3>
+                    <p class="project-description">
+                        HTML, CSS va JavaScript yordamida yaratilgan multifunksional ilova. Hozirgi versiyada kalkulyator, soat, taymer va notes funksiyalari mavjud. Loyiha responsive dizaynga ega va foydalanishga qulay.
+                    </p>
+                    <div class="project-features">
+                        <span class="feature-tag">Kalkulyator</span>
+                        <span class="feature-tag">Digital Soat</span>
+                        <span class="feature-tag">Taymer</span>
+                        <span class="feature-tag">Notes</span>
+                        <span class="feature-tag">Responsive Dizayn</span>
+                    </div>
+                    <p style="color: var(--accent-gold); font-weight: 500; margin-top: 10px;">
+                        <i class="fas fa-code"></i> Texnologiyalar: HTML5, CSS3, JavaScript
+                    </p>
+                </div>
+            </div>
+            <div class="project-card animate-item">
+                <div class="project-img">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Iqtisodiy Tahlil Platformasi</h3>
+                    <p class="project-description">
+                        Iqtisodiy ko'rsatkichlarni tahlil qilish va vizuallashtirish uchun platforma. Real vaqtda ma'lumotlarni ko'rsatish, prognozlar va trendlarni tahlil qilish imkoniyatlari mavjud.
+                    </p>
+                    <div class="project-features">
+                        <span class="feature-tag">Ma'lumotlar Vizualizatsiyasi</span>
+                        <span class="feature-tag">Real Vaqt Monitoringi</span>
+                        <span class="feature-tag">Prognoz Modellari</span>
+                        <span class="feature-tag">PDF Hisobotlar</span>
+                    </div>
+                    <p style="color: var(--accent-gold); font-weight: 500; margin-top: 10px;">
+                        <i class="fas fa-code"></i> Texnologiyalar: JavaScript, Chart.js, Python
+                    </p>
+                </div>
+            </div>
+            <div class="project-card animate-item">
+                <div class="project-img">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">AI Yordamchi</h3>
+                    <p class="project-description">
+                        Sun'iy intellekt asosida ishlovchi shaxsiy yordamchi. Matnlar tarjima qilish, tahlil qilish, kontent yaratish va boshqa ko'plab vazifalarni bajarish qobiliyatiga ega.
+                    </p>
+                    <div class="project-features">
+                        <span class="feature-tag">Matn Tarjimasi</span>
+                        <span class="feature-tag">Kontent Yaratish</span>
+                        <span class="feature-tag">Ma'lumotlar Tahlili</span>
+                        <span class="feature-tag">Avtomatlashtirish</span>
+                    </div>
+                    <p style="color: var(--accent-gold); font-weight: 500; margin-top: 10px;">
+                        <i class="fas fa-code"></i> Texnologiyalar: Python, TensorFlow, NLP
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title animate-item">Bog'lanish</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item animate-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Telefon</h3>
+                        <a href="tel:+998883103012">+998 88 310 30 12</a>
+                    </div>
+                </div>
+                <div class="contact-item animate-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Telegram</h3>
+                        <a href="https://t.me/CEO_ECONOMY" target="_blank">@CEO_ECONOMY</a>
+                    </div>
+                </div>
+                <div class="contact-item animate-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Ta'lim</h3>
+                        <p>Turon Universiteti</p>
+                        <p>Qashqadaryo viloyati, Qarshi shahar</p>
+                        <p>Iqtisodiyot fakulteti</p>
+                    </div>
+                </div>
+            </div>
+            <div class="working-hours animate-item">
+                <h3>Ish Vaqti</h3>
+                <ul class="hours-list">
+                    <li>Dushanba - Juma: <span class="highlight-hours">09:00 - 16:00</span></li>
+                    <li>Shanba: <span class="highlight-hours">09:00 - 13:00</span></li>
+                    <li>Yakshanba: <span class="highlight-hours">Dam olish kuni</span></li>
+                </ul>
+                <p style="margin-top: 20px; font-style: italic; color: var(--text-secondary);">
+                    * Urgent loyihalar uchun dam olish kunlarida ham bog'lanishingiz mumkin
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Egamov Humoyunbek. Barcha huquqlar himoyalangan.</p>
+            <p>Web dasturlash va iqtisodiy tahlillar sohasida professional xizmatlar</p>
+            <div class="social-links">
+                <a href="https://t.me/CEO_ECONOMY" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Navigation active link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Scroll animation for elements
+        const animateItems = document.querySelectorAll('.animate-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        animateItems.forEach(item => {
+            observer.observe(item);
+        });
+
+        // Initialize animations on page load
+        window.addEventListener('load', () => {
+            // Animate hero section immediately
+            document.querySelector('.hero-content').classList.add('visible');
+            
+            // Animate other elements with delay
+            setTimeout(() => {
+                document.querySelectorAll('.animate-item:not(.hero-content)').forEach((item, index) => {
+                    setTimeout(() => {
+                        if (!item.classList.contains('visible')) {
+                            item.classList.add('visible');
+                        }
+                    }, 300 * index);
+                });
+            }, 500);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
