@@ -184,7 +184,7 @@ nav a:hover::after, nav a.active::after {
     color: var(--dark-bg);
 }
 
-/* Sections - BARCHA SARLAVHALAR MARKAZDA */
+/* Sections */
 section {
     padding: var(--section-padding);
     min-height: 100vh;
