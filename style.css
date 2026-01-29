@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #020617;
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
+  perspective: 1000px;
+}
+
+/* === 3D FON QATLAMLARI === */
+.scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transform-style: preserve-3d;
+}
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.layer--back {
+  background: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.05), transparent 30%),
+              radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.05), transparent 30%);
+  transform: translateZ(-100px) scale(2);
+}
+
+.layer--mid {
+  background: 
+    linear-gradient(transparent, rgba(15, 23, 42, 0.8)),
+    url('image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><rect x="0" y="0" width="50" height="50" fill="%2338bdf8"/><rect x="50" y="50" width="50" height="50" fill="%23f59e0b"/></svg>');
+  transform: translateZ(-50px) scale(1.5);
+}
+
+.layer--front {  background: 
+    radial-gradient(circle at 30% 40%, rgba(15, 23, 42, 0.7), transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(15, 23, 42, 0.7), transparent 50%);
+  transform: translateZ(0) scale(1);
+}
+
+/* === HERO CONTENT === */
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-content {
+  max-width: 800px;
+  padding: 2rem;
+  transform-style: preserve-3d;
+  animation: float 8s ease-in-out infinite;
+}
+
+.name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  text-shadow: 
+    0 0 10px rgba(56, 189, 248, 0.7),
+    0 0 20px rgba(56, 189, 248, 0.4);
+  transform: translateZ(50px);
+}
+
+.tagline {
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  transform: translateZ(30px);
+}
+
+/* === 3D TUGMALAR === */
+.btn-3d {
+  padding: 1rem 2.2rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 60px;  background: #38bdf8;
+  color: #0f172a;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  transform: translateZ(20px);
+  box-shadow: 
+    0 10px 25px rgba(56, 189, 248, 0.4),
+    inset 0 -2px 0 rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: 0.5s;
+}
+
+.btn-3d:hover::before {
+  left: 100%;
+}
+
+.btn-3d:hover {
+  transform: translateZ(40px) translateY(-6px) scale(1.05);
+  box-shadow: 
+    0 15px 35px rgba(56, 189, 248, 0.6),
+    inset 0 2px 0 rgba(255,255,255,0.2);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid #38bdf8;
+  color: #38bdf8;
+  box-shadow: 
+    0 10px 25px rgba(56, 189, 248, 0.2),
+    inset 0 -2px 0 rgba(56, 189, 248, 0.2);
+}
+
+.btn-outline:hover {
+  background: rgba(56, 189, 248, 0.1);
+  box-shadow: 
+    0 15px 35px rgba(56, 189, 248, 0.4),
+    inset 0 2px 0 rgba(255,255,255,0.1);
+}
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotateX(2deg); }
+  50% { transform: translateY(-15px) rotateX(-2deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .name { font-size: 3.2rem; }
+  .tagline { font-size: 1.3rem; }
+  .btn-3d { padding: 0.8rem 1.8rem; font-size: 1rem; }
+                       }
