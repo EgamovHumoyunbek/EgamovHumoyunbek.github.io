@@ -184,7 +184,7 @@ nav a:hover::after, nav a.active::after {
     color: var(--dark-bg);
 }
 
-/* Sections */
+/* Sections - BARCHA SARLAVHALAR MARKAZDA */
 section {
     padding: var(--section-padding);
     min-height: 100vh;
@@ -200,9 +200,8 @@ section {
     margin-bottom: 60px;
     text-align: center;
     position: relative;
-    display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
+    display: block;
+    width: 100%;
     text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
